@@ -3,7 +3,7 @@ def file_line_generator(file, search_words, stop_words):
     set_stop_words = {word.lower() for word in stop_words}
 
     if isinstance(file, str):
-        with open(file, 'r', 'utf-8') as f:
+        with open(file) as f:
             yield from process_file(f, set_search_words, set_stop_words)
     else:
         yield from process_file(file, set_search_words, set_stop_words)

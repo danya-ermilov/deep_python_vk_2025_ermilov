@@ -28,7 +28,7 @@ jobs:
 
       - name: Check pylint
         if: ${{ always() }}
-        run: pylint ./*/*.py
+        run: pylint .
 
       - name: Check tests with pytest
         if: ${{ always() }}

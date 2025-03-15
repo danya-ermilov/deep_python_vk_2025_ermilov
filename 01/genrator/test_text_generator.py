@@ -6,7 +6,8 @@ from text_generator import file_line_generator
 class TestFileinGenerator(unittest.TestCase):
     def test_search_words_found(self):
         file_content = StringIO("а Роза упала на лапу Азора\nроза красивая\nлапа\
-                                 мягкая\nрозы цветут\nлапы пушистые")
+мягкая\nрозы цветут\nлапы пушистые")
+
         search_words = ["роза", "лапа"]
         stop_words = ["азора", "упала"]
 
@@ -16,7 +17,8 @@ class TestFileinGenerator(unittest.TestCase):
 
     def test_stop_words_ignore(self):
         file_content = StringIO("а Роза упала на лапу Азора\nроза красивая\nлапа\
-                                 мягкая\nрозы цветут\nлапы пушистые")
+мягкая\nрозы цветут\nлапы пушистые")
+
         search_words = ["роза", "лапа"]
         stop_words = ["азора", "упала"]
 

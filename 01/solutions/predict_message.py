@@ -18,10 +18,9 @@ def predict_message_mood(
 
     if result >= good_thresholds:
         return "отл"
-    elif good_thresholds > result >= bad_thresholds:
+    if good_thresholds > result >= bad_thresholds:
         return "норм"
-    else:
-        return "неуд"
+    return "неуд"
 
 
 if __name__ == "__main__":

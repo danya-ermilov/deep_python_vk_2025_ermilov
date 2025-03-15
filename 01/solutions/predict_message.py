@@ -23,6 +23,7 @@ def predict_message_mood(
     else:
         return "неуд"
 
+
 if __name__ == "__main__":
     assert predict_message_mood("Чапаев и пустота") == "отл"
     assert predict_message_mood("ф ф", 0.5, 0.9) == "норм"

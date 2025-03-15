@@ -8,6 +8,7 @@ def file_line_generator(file, search_words, stop_words):
     else:
         yield from process_file(file, search_words, stop_words)
 
+
 def process_file(file, search_words, stop_words):
     for line in file:
         words_in_line = set(line.lower().split())
@@ -17,6 +18,7 @@ def process_file(file, search_words, stop_words):
 
         if words_in_line & search_words:
             yield line.rstrip()
+
 
 if __name__ == "__main__":
     filename = "text.txt"

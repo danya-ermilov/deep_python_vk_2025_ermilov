@@ -3,7 +3,7 @@ def file_line_generator(file, search_words, stop_words):
     set_stop_words = {word.lower() for word in stop_words}
 
     if isinstance(file, str):
-        with open(file) as f:
+        with open(file, "r", encoding="utf-8") as f:
             yield from process_file(f, set_search_words, set_stop_words)
     else:
         yield from process_file(file, set_search_words, set_stop_words)
@@ -20,12 +20,12 @@ def process_file(file, search_words, stop_words):
             yield line.rstrip()
 
 
-if __name__ == "__main__":
-    FILE_NAME = "text.txt"
+# if __name__ == "__main__":
+#     FILE_NAME = "text.txt"
 
-    search_words = ["роза", "лапа"]
+#     search_words = ["роза", "лапа"]
 
-    stop_words = ["азора", "упала"]
+#     stop_words = ["азора", "упала"]
 
-    for line in file_line_generator(FILE_NAME, search_words, stop_words):
-        print(line)
+#     for line in file_line_generator(FILE_NAME, search_words, stop_words):
+#         print(line)

@@ -18,12 +18,12 @@ def predict_message_mood(
 
     if result >= good_thresholds:
         return "отл"
-    if good_thresholds > result >= bad_thresholds:
+    if result >= bad_thresholds:
         return "норм"
     return "неуд"
 
 
-if __name__ == "__main__":
-    assert predict_message_mood("Чапаев и пустота") == "отл"
-    assert predict_message_mood("ф ф", 0.5, 0.9) == "норм"
-    assert predict_message_mood("Вулкан______________________") == "неуд"
+# if __name__ == "__main__":
+#     assert predict_message_mood("Чапаев и пустота") == "отл"
+#     assert predict_message_mood("ф ф", 0.5, 0.9) == "норм"
+#     assert predict_message_mood("Вулкан______________________") == "неуд"

@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 
-from solutions.text_generator import file_line_generator
+from text_generator import file_line_generator
 
 
 class TestFileinGenerator(unittest.TestCase):
@@ -65,6 +65,38 @@ class TestFileinGenerator(unittest.TestCase):
         file_content = StringIO("роза и лапа\nрозы цветут\nлапы пушистые")
         search_words = ["роза", "лапа"]
         stop_words = []
+
+        result = list(file_line_generator(file_content, search_words, stop_words))
+        self.assertEqual(result, ["роза и лапа"])
+
+    def test_string_in_search_words(self):
+        file_content = StringIO("роза и лапа\nрозы цветут\nлапы пушистые")
+        search_words = ["роза и лапа"]
+        stop_words = ['лапы']
+
+        result = list(file_line_generator(file_content, search_words, stop_words))
+        self.assertEqual(result, [])
+
+    def test_string_in_stop_words(self):
+        file_content = StringIO("роза и лапа\nрозы цветут\nлапы пушистые")
+        search_words = ["лапа"]
+        stop_words = ["роза и лапа"]
+
+        result = list(file_line_generator(file_content, search_words, stop_words))
+        self.assertEqual(result, ["роза и лапа"])
+
+    def test_char_in_search_words(self):
+        file_content = StringIO("роза и лапа\nрозы цветут\nлапы пушистые")
+        search_words = ["апа"]
+        stop_words = []
+
+        result = list(file_line_generator(file_content, search_words, stop_words))
+        self.assertEqual(result, [])
+
+    def test_char_in_stop_words(self):
+        file_content = StringIO("роза и лапа\nрозы цветут\nлапы пушистые")
+        search_words = ["роза"]
+        stop_words = ["апа"]
 
         result = list(file_line_generator(file_content, search_words, stop_words))
         self.assertEqual(result, ["роза и лапа"])

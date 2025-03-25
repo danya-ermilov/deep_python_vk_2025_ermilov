@@ -1,10 +1,11 @@
 import unittest
 from io import StringIO
-from json_parser import process_json
 from unittest.mock import (
     patch,
     Mock,
 )
+
+from json_parser import process_json
 
 
 class TestProcessJson(unittest.TestCase):

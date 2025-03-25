@@ -4,7 +4,6 @@ from retry_deco import retry_deco
 
 
 class TestRetryDeco(unittest.TestCase):
-
     def test_add_success(self):
         @retry_deco(3)
         def add(a, b):

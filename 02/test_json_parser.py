@@ -1,5 +1,9 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import (
+    patch,
+    Mock,
+)
+
 from io import StringIO
 
 from json_parser import process_json
@@ -11,7 +15,7 @@ class TestProcessJson(unittest.TestCase):
         required_keys = ["key1", "KEY2"]
         tokens = ["WORD1", "word2"]
 
-        mock_callback = unittest.mock.Mock()
+        mock_callback = Mock()
 
         process_json(json_str, required_keys, tokens, mock_callback)
 
@@ -40,7 +44,7 @@ class TestProcessJson(unittest.TestCase):
         required_keys = ["key3"]
         tokens = ["WORD1"]
 
-        mock_callback = unittest.mock.Mock()
+        mock_callback = Mock()
 
         process_json(json_str, required_keys, tokens, mock_callback)
 
@@ -81,23 +85,8 @@ class TestProcessJson(unittest.TestCase):
         required_keys = ["key1", "KEY2"]
         tokens = ["WORD3"]
 
-        mock_callback = unittest.mock.Mock()
+        mock_callback = Mock()
 
         process_json(json_str, required_keys, tokens, mock_callback)
 
         mock_callback.assert_not_called()
-
-    def test_token_in_value(self):
-        json_str = '{"key1": "Word1 word2", "key2": "word2 word3"}'
-        required_keys = ["key1", "KEY2"]
-        tokens = ["WORD1", "word2"]
-
-        mock_callback = unittest.mock.Mock()
-
-        process_json(json_str, required_keys, tokens, mock_callback)
-
-        expected_calls = [
-            unittest.mock.call("key1", "WORD1"),
-            unittest.mock.call("key1", "word2"),
-        ]
-        mock_callback.assert_has_calls(expected_calls, any_order=True)

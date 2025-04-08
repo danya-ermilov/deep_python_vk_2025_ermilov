@@ -8,17 +8,17 @@ class TestDescriptors(unittest.TestCase):
 
     def test_initial_values(self):
         self.assertEqual(self.obj.integer, 10)
-        self.assertEqual(self.obj.float, 20.5)
+        self.assertEqual(self.obj.double, 20.5)
         self.assertEqual(self.obj.string, "test")
-        self.assertEqual(self.obj.__dict__, {"_integer": 10, "_float": 20.5, "_string": "test"})
+        self.assertEqual(self.obj.__dict__, {"_integer": 10, "_double": 20.5, "_string": "test"})
 
     def test_change_values_correct_types(self):
         self.obj.integer = 20
-        self.obj.float = 30.5
+        self.obj.double = 30.5
         self.obj.string = "new value"
 
         self.assertEqual(self.obj.integer, 20)
-        self.assertEqual(self.obj.float, 30.5)
+        self.assertEqual(self.obj.double, 30.5)
         self.assertEqual(self.obj.string, "new value")
 
     def test_wrong_types(self):
@@ -26,7 +26,7 @@ class TestDescriptors(unittest.TestCase):
             self.obj.integer = "not an integer"
 
         with self.assertRaises(ValueError):
-            self.obj.float = "not a float"
+            self.obj.double = "not a double"
 
         with self.assertRaises(ValueError):
             self.obj.string = 123

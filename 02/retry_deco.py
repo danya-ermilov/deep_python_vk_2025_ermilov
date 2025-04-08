@@ -1,20 +1,17 @@
 from functools import wraps
-from typing import Callable, Any, Type, Tuple, Union
 
 
-def default_print(func: Callable, args: tuple, kwargs: dict, attempt: int) -> str:
+def default_print(func, args, kwargs, attempt):
     return f'run {func.__name__} with positional {args=}, with keyword {kwargs=}, {attempt=}'
 
 
-def retry_deco(max_tries: int, check_exceptions: Tuple[Type[Exception], ...] = None):
+def retry_deco(max_tries, check_exceptions=None):
     if check_exceptions is None:
         check_exceptions = ()
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func):
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Union[Any, Exception]:
-            last_exception = None
-
+        def wrapper(*args, **kwargs):
             for attempt in range(1, max_tries + 1):
                 try:
                     result = func(*args, **kwargs)
@@ -23,7 +20,7 @@ def retry_deco(max_tries: int, check_exceptions: Tuple[Type[Exception], ...] = N
 
                 except check_exceptions as exc:
                     print(default_print(func, args, kwargs, attempt), f'{exc=}')
-                    raise exc from None
+                    raise exc
 
                 except Exception as exc:
                     last_exception = exc

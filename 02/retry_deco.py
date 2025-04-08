@@ -1,27 +1,35 @@
 from functools import wraps
+from typing import Callable, Any, Type, Tuple, Union
 
 
-def default_print(func, args, kwargs, attempt):
+def default_print(func: Callable, args: tuple, kwargs: dict, attempt: int) -> str:
     return f'run {func.__name__} with positional {args=}, with keyword {kwargs=}, {attempt=}'
 
 
-def retry_deco(max_tries, check_exceptions=None):
+def retry_deco(max_tries: int, check_exceptions: Tuple[Type[Exception], ...] = None):
     if check_exceptions is None:
-        check_exceptions = []
+        check_exceptions = ()
 
-    def decorator(func):
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Union[Any, Exception]:
+            last_exception = None
+
             for attempt in range(1, max_tries + 1):
                 try:
                     result = func(*args, **kwargs)
                     print(default_print(func, args, kwargs, attempt), f'{result=}')
-                    return args, kwargs, attempt, result
+                    return result
+
+                except check_exceptions as exc:
+                    print(default_print(func, args, kwargs, attempt), f'{exc=}')
+                    raise exc from None
+
                 except Exception as exc:
-                    exception = exc
-                    print(default_print(func, args, kwargs, attempt), f'{exception=}')
-                    if any(isinstance(exception, check_exc) for check_exc in check_exceptions):
-                        return args, kwargs, attempt, exception
-            return args, kwargs, attempt, exception
+                    last_exception = exc
+                    print(default_print(func, args, kwargs, attempt), f'{exc=}')
+
+            raise last_exception if last_exception else RuntimeError("No attempts made")
+
         return wrapper
     return decorator

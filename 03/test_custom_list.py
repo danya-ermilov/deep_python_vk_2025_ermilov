@@ -56,23 +56,23 @@ class TestCustomList(unittest.TestCase):
         self.assertIsInstance(result, CustomList)
 
     def test_comparison(self):
-        self.assertTrue(CustomList([6]) == CustomList([1, 2, 3]))  # 6 == 6
-        self.assertFalse(CustomList([1, 2]) == CustomList([1, 3]))  # 3 != 4
+        self.assertTrue(CustomList([6]) == CustomList([1, 2, 3]))
+        self.assertFalse(CustomList([1, 2]) == CustomList([1, 3]))
 
-        self.assertTrue(CustomList([1, 2, 3]) > CustomList([1, 2]))  # 6 > 3
-        self.assertFalse(CustomList([1]) > CustomList([1, 2]))  # 1 > 3 -> False
+        self.assertTrue(CustomList([1, 2, 3]) > CustomList([1, 2]))
+        self.assertFalse(CustomList([1]) > CustomList([1, 2]))
 
-        self.assertTrue(CustomList([1]) < [1, 2])  # 1 < 3
-        self.assertFalse(CustomList([1, 2]) < [1])  # 3 < 1 -> False
+        self.assertTrue(CustomList([1]) < [1, 2])
+        self.assertFalse(CustomList([1, 2]) < [1])
 
-        self.assertTrue(CustomList([6]) >= CustomList([1, 2]))  # 6 == 6
-        self.assertFalse(CustomList([1]) >= CustomList([1, 2]))  # 3 != 4
+        self.assertTrue(CustomList([6]) >= CustomList([1, 2]))
+        self.assertFalse(CustomList([1]) >= CustomList([1, 2]))
 
-        self.assertTrue(CustomList([6]) <= CustomList([1, 2, 3, 4]))  # 6 == 6
-        self.assertFalse(CustomList([1, 2, 3]) <= CustomList([1, 3]))  # 3 != 4
+        self.assertTrue(CustomList([6]) <= CustomList([1, 2, 3, 4]))
+        self.assertFalse(CustomList([1, 2, 3]) <= CustomList([1, 3]))
 
-        self.assertTrue(CustomList([1, 2]) != CustomList([1, 3]))  # 3 != 4
-        self.assertFalse(CustomList([6]) != CustomList([1, 2, 3]))  # 6 == 6
+        self.assertTrue(CustomList([1, 2]) != CustomList([1, 3]))
+        self.assertFalse(CustomList([6]) != CustomList([1, 2, 3]))
 
     def test_type_error(self):
         with self.assertRaises(TypeError):

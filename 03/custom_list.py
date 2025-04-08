@@ -14,13 +14,12 @@ class CustomList(list):
         return self.__add__(other)
 
     def __sub__(self, other):
-        negative_other = [-x for x in other] if isinstance(other, (CustomList, list)) else -other
+        negative_other = [-x for x in other] if isinstance(other, (CustomList, list)) else -1 * other
         return self.__add__(negative_other)
 
     def __rsub__(self, other):
-        negative_self = [-x for x in self] if isinstance(self, (CustomList, list)) else -self
-        self = CustomList(negative_self)
-        return self.__add__(other)
+        negative_self = [-x for x in self] if isinstance(self, (CustomList, list)) else -1 * self
+        return CustomList(negative_self).__add__(other)
 
     def __lt__(self, other):
         if not isinstance(other, (list, CustomList)):

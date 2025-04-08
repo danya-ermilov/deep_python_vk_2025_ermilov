@@ -24,7 +24,7 @@ class Integer(Base):
         return isinstance(value, int)
 
 
-class Float(Base):
+class Double(Base):
     def _validate(self, value):
         return isinstance(value, float)
 
@@ -37,16 +37,17 @@ class String(Base):
 class Example:
     integer = Integer()
     string = String()
-    float = Float()
+    double = Double()
 
-    def __init__(self, integ, float, string):
+    def __init__(self, integ, double, string):
         self.integer = integ
-        self.float = float
+        self.double = double
         self.string = string
 
 
-a = Example(3, 4.5, "asd")
+if __name__ == "__main__":
+    a = Example(3, 4.5, "asd")
 
-# a.integ = 1.9
+    # a.integ = 1.9
 
-print(a.__dict__)
+    print(a.__dict__)

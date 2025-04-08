@@ -9,4 +9,4 @@ disable=
     R0903,
 
 [FORMAT]
-max-line-length=100
+max-line-length=120

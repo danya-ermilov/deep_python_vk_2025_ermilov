@@ -5,14 +5,14 @@ class Base(ABC):
     def __set_name__(self, owner, name):
         self.name = "_" + name
 
-    def __get__(self, instanse, owner):
-        return getattr(instanse, self.name, None)
+    def __get__(self, instance, owner):
+        return getattr(instance, self.name, None)
 
     def __set__(self, instance, value):
         if self._validate(value):
             setattr(instance, self.name, value)
         else:
-            raise ValueError("Not the right type")
+            raise ValueError(f"Not the correct type for {self.name[1:]}")
 
     @abstractmethod
     def _validate(self, value):
@@ -43,11 +43,3 @@ class Example:
         self.integer = integ
         self.double = double
         self.string = string
-
-
-if __name__ == "__main__":
-    a = Example(3, 4.5, "asd")
-
-    # a.integ = 1.9
-
-    print(a.__dict__)

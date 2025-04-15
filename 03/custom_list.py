@@ -1,7 +1,7 @@
 class CustomList(list):
     def __add__(self, other):
         if isinstance(other, int):
-            other = [other]
+            other = [other] * len(self)
         result = CustomList()
         max_len = max(len(self), len(other))
         for i in range(max_len):
@@ -18,7 +18,7 @@ class CustomList(list):
         return self.__add__(negative_other)
 
     def __rsub__(self, other):
-        negative_self = [-x for x in self] if isinstance(self, (CustomList, list)) else -1 * self
+        negative_self = [-x for x in self]
         return CustomList(negative_self).__add__(other)
 
     def __lt__(self, other):
@@ -58,8 +58,8 @@ class CustomList(list):
 
 
 if __name__ == "__main__":
-    lst1 = CustomList([2])
+    lst1 = CustomList([2, 4])
     lst2 = [1, 3]
     final_lst = lst2 + lst1
-    a = 1 - lst1
+    a = lst1 - 1
     print(a, type(a))

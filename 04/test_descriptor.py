@@ -22,14 +22,25 @@ class TestDescriptors(unittest.TestCase):
         self.assertEqual(self.obj.string, "new value")
 
     def test_wrong_types(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             self.obj.integer = "not an integer"
 
-        with self.assertRaises(ValueError):
+        self.assertEqual(str(context.exception), "Not the correct type for integer")
+
+        with self.assertRaises(ValueError) as context:
             self.obj.double = "not a double"
 
-        with self.assertRaises(ValueError):
+        self.assertEqual(str(context.exception), "Not the correct type for double")
+
+        with self.assertRaises(ValueError) as context:
             self.obj.string = 123
+
+        self.assertEqual(str(context.exception), "Not the correct type for string")
+
+        self.assertEqual(self.obj.integer, 10)
+        self.assertEqual(self.obj.double, 20.5)
+        self.assertEqual(self.obj.string, "test")
+        self.assertEqual(self.obj.__dict__, {"_integer": 10, "_double": 20.5, "_string": "test"})
 
     def test_instance_dict_consistency(self):
         self.obj.integer = 30

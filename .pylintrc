@@ -10,6 +10,8 @@ disable=
     W0104,
     E1003,
     W0201,
+    R0801,
+    R0902,
 
 [FORMAT]
 max-line-length=120
